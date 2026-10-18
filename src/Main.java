@@ -12,7 +12,7 @@ public class Main {
         3. Registrar cuadrilla
         4. Gestión de jornadas
         5. Consultas (Órdenes y Cuadrillas)
-        6. Reportes 
+        6. Reportes gerenciales
         7. Salir
         ===================================
         """);
