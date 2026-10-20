@@ -48,9 +48,9 @@ public class InstalacionCertificada extends Instalacion { //clase hija de instal
     public String toString() {
         String base = super.toString().replace("========================================", "");
         StringBuilder sb = new StringBuilder(base);
-        sb.append(String.format("Valor declarado de materiales: Q%.2f ", costoMateriales));
+        sb.append(String.format("Valor declarado de materiales: Q%.2f\n ", costoMateriales));
         sb.append("Certificado emitido: Q120.00 incluidos\n");
-        sb.append(String.format("Garantía (5% materiales): Q%.2f  incluida ", (costoMateriales * 0.05f)));
+        sb.append(String.format("Garantía: Q%.2f  incluida ", (costoMateriales * 0.05f)));
         sb.append("========================================\n");
         return sb.toString();
     }

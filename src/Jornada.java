@@ -46,7 +46,10 @@ public class Jornada {
     }
 
     //asignación de órdenes (criterios)
-    public  void asignarOrden(Orden orden) {
+    public void asignarOrden(Orden orden) {
+        if (this.ordenes.contains(orden)) {
+            throw new IllegalArgumentException("La orden ya fue asignada a esta jornada.");
+        }
         if(this.estado != EstadoJornada.EN_PREPARACION) {
             throw new IllegalStateException("Solo se pueden asignar órdenes mientras la jornada esté en preparación.");
         }

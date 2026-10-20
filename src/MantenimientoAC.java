@@ -23,7 +23,7 @@ public class MantenimientoAC extends Orden {
     @Override
     public float calcularCosto() {
         float tarifaBase = 100.00f; // solo zona metropolitana
-        float costoXHora = 110.00f;
+        float costoXHora = getHorasEstTrabajo() * 110.00f;
         float cargoGas = 80.00f;
         return tarifaBase + costoXHora + cargoGas;
     }
