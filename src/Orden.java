@@ -14,7 +14,9 @@ public abstract class Orden {
         if (nombreCliente == null || nombreCliente.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del cliente no puede ser nulo o vacío.");
         }
-        this.dirreccionCliente = dirreccionCliente;
+        if (dirreccionCliente == null || dirreccionCliente.trim().isEmpty()) {
+            throw new IllegalArgumentException("La dirección del cliente no puede ser nula o vacía.");
+        }
         if (horasEstTrabajo <= 0) {
             throw new IllegalArgumentException("Las horas estimadas de trabajo deben ser positivas y mayores a cero.");
         }
@@ -63,44 +65,36 @@ public abstract class Orden {
     }
 
     // métodos para clases hija
-
     public abstract float calcularCosto();
-
-    public abstract float calcularCostoExtra();
-
     public abstract int calcularTiempoEstAtencion();
-
     public abstract int getLimiteVisitas();
-
     public abstract boolean requiereCuadrillaCertRefrigeracion();
-
     public abstract String getCategoriaOrden();
 
-    @Override
-public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("========================================\n");
-    sb.append("Categoría: ").append(getCategoriaOrden()).append("\n");
-    sb.append("ID: ").append(IDOrden).append("\n");
-    sb.append("Cliente: ").append(nombreCliente).append("\n");
-    sb.append("Dirección: ").append(dirreccionCliente).append("\n");
-    sb.append("Zona: ").append(zona).append("\n");
-    sb.append("Horas estimadas: ").append(horasEstTrabajo).append(" h\n");
-    sb.append("Estado: ").append(estado).append("\n");
-    sb.append("Visitas realizadas: ").append(visitas).append(" / ").append(getLimiteVisitas()).append("\n");
-    sb.append("Tiempo estimado de atención: ").append(calcularTiempoEstAtencion()).append(" días hábiles\n");
-    sb.append(String.format("Costo total: Q%.2f\n", calcularCosto()));
-    return sb.toString();
-}
 
-
-    
-    //métodos verificar cantidad visitas
+     //métodos para verificar cantidad visitas
     public void registrarVisita() {
         this.visitas++;
     }
 
     public boolean haAgotadoVisitas() {
         return this.visitas >= getLimiteVisitas();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("========================================\n");
+        sb.append("Categoría: ").append(getCategoriaOrden()).append("\n");
+        sb.append("ID: ").append(IDOrden).append("\n");
+        sb.append("Cliente: ").append(nombreCliente).append("\n");
+        sb.append("Dirección: ").append(dirreccionCliente).append("\n");
+        sb.append("Zona: ").append(zona).append("\n");
+        sb.append("Horas estimadas de trabajo: ").append(horasEstTrabajo).append(" h\n");
+        sb.append("Estado: ").append(estado).append("\n");
+        sb.append("Visitas realizadas: ").append(visitas).append(" / ").append(getLimiteVisitas()).append("\n");
+        sb.append("Tiempo estimado para atender: ").append(calcularTiempoEstAtencion()).append(" días hábiles\n");
+        sb.append(String.format("Costo total: Q%.2f", calcularCosto()));
+        return sb.toString();
     }
 }

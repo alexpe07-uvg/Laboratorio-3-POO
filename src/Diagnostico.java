@@ -12,17 +12,12 @@ public class Diagnostico extends Orden {
     @Override
     public float calcularCosto() {
         if (getZonaTrabajo() == ZonaTrabajo.METROPOLITANA) {
-            return 150;
+            return 150.00f;
         }
         if(getZonaTrabajo() == ZonaTrabajo.PERIFERICA) {
-            return 225;
+            return 225.00f;
         }
         return 0;
-    }
-
-    @Override
-    public float calcularCostoExtra() {
-        return 0; // Tarifa fija para este tipo de servicio
     }
 
     @Override
@@ -52,4 +47,12 @@ public class Diagnostico extends Orden {
         return "Diagnóstico";
     }
 
+    @Override 
+    public String toString() {
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append("Nota: Tarifa fija según zona. No importa la cantidad de horas\n");
+        sb.append("========================================");
+        return sb.toString();
+
+    }
 }

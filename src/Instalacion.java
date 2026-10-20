@@ -11,29 +11,44 @@ public Instalacion(int IDOrden, String nombreCliente, String dirreccionCliente, 
     this.puntosAInstalar = puntosAInstalar;
 }
 
-@Override
-public float calcularCosto() {
-    if (getZonaTrabajo() == ZonaTrabajo.METROPOLITANA) {
-        return 100;
-    }
-    if(getZonaTrabajo() == ZonaTrabajo.PERIFERICA) {
-        return 175;
-    }
-    return 0;
+//getters y setters
+public int getPuntosAInstalar() {
+    return puntosAInstalar;
 }
 
-@Override 
-public float calcularCostoExtra() {
+public int getHorasFacturables() {
+        double horasPorPuntos = this.puntosAInstalar * 0.75;
+        double maxHoras = Math.max(getHorasEstTrabajo(), horasPorPuntos);
+        return (int) Math.ceil(maxHoras); // Redondeo hacia el entero siguiente para facturar horas completas sin importar si fue fracción de hora
+    }
 
+@Override
+public float calcularCosto() {
+    float tarifaBase = 0;
+    if (getZonaTrabajo() == ZonaTrabajo.METROPOLITANA) {
+        tarifaBase = 100.00f;
+    }
+    if (getZonaTrabajo() == ZonaTrabajo.PERIFERICA) {
+        tarifaBase = 175.00f;
+    }
+    return tarifaBase + (getHorasFacturables() * 90.00f);
 }
 
 @Override 
 public int calcularTiempoEstAtencion() {
+    if (getZonaTrabajo() == ZonaTrabajo.METROPOLITANA) {
+        return 3;
+    }
+    if(getZonaTrabajo() == ZonaTrabajo.PERIFERICA) {
+        return 5;
+    }
+    return 0;
 
 }
 
 @Override 
 public int getLimiteVisitas() {
+    return 3;
 }
 
 @Override
@@ -48,9 +63,10 @@ public String getCategoriaOrden() {
 
 @Override 
 public String toString(){
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder(super.toString());
     sb.append("========================================\n");
-    sb.append()
+    sb.append("Puntos a instalar: ").append(getPuntosAInstalar()).append("\n");
+    sb.append("Horas facturables calculadas: ").append(getHorasFacturables()).append("\n");
+    return sb.toString();
 }
-
 }
